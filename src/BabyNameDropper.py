@@ -38,7 +38,6 @@ def trim_csv_to_limit(csvfile, sex, count_limit=0):
         names = names[:count_limit]
 
     names.sort(key=lambda x: x[0])
-    print(names)
 
     return names
 
@@ -93,6 +92,9 @@ def get_names(sex, input_file=None, limit=None):
 
     # Generate output csv
     generate_output_csv(names)
+    print("Generated list of " + str(len(names)) + " at namelist.csv")
+
+    return names
 
 
 def main():
