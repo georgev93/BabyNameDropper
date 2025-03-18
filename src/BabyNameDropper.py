@@ -74,6 +74,7 @@ def get_names(sex, input_file=None, limit=None):
             with zipfile.ZipFile(io.BytesIO(response.content)) as z:
                 # Get most recent year's file
                 newest_file = max(f for f in z.namelist() if f.startswith("yob"))
+                print("Using most recent year: " + newest_file[3:7])
 
                 # Extract and save as cache file
                 with z.open(newest_file) as src, open(
