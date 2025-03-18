@@ -7,9 +7,9 @@ We've been through like... a thousand names! There has to be a better way!
 The baby name workflow in this repo looks like this:
 
 1. Use the BabyNameDropper script to enumerate a "voting sheet". Call it with
-   `python BabyNameDropper.py --sex M` or `python BabyNameDropper.py --sex F`
-depending on the sex of your baby. You can add `--limit 1000` to limit the list
-to the 1000 most popular names (or any number you choose). If you omit the
+`python BabyNameDropper.py --gender M` or `python BabyNameDropper.py --gender
+F` depending on the gender of the name. You can add `--limit 1000` to limit the
+list to the 1000 most popular names (or any number you choose). If you omit the
 limit option, it will give you a list of every name that was used more than 5
 times during the most recent year of data (probably in the tens of thousands of
 names!)

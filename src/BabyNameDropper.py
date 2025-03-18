@@ -14,10 +14,10 @@ def parse_args():
         )
     )
     parser.add_argument(
-        "--sex",
+        "--gender",
         required=True,
         choices=["M", "F"],
-        help="Filter by sex (M=Male, F=Female)",
+        help="Filter by gender (M=Male, F=Female)",
     )
     parser.add_argument("--input", help="Use existing CSV file instead of downloading")
     parser.add_argument(
@@ -26,11 +26,11 @@ def parse_args():
     return parser.parse_args()
 
 
-def trim_csv_to_limit(csvfile, sex, count_limit=0):
+def trim_csv_to_limit(csvfile, gender, count_limit=0):
     names = []
     with open(csvfile) as f:
         for row in csv.reader(f):
-            if row[1] == sex:
+            if row[1] == gender:
                 names.append((row[0], int(row[2])))
 
     names.sort(key=lambda x: x[1], reverse=True)
@@ -52,11 +52,11 @@ def generate_output_csv(namelist, output_file='namelist.csv'):
             writer.writerow([name[0], '', ''])
 
 
-def get_names(sex, input_file=None, limit=None):
+def get_names(gender, input_file=None, limit=None):
     # Define output file name for caching
     cache_dir = Path('cache')
     cache_dir.mkdir(exist_ok=True)
-    cache_file = Path(f"{cache_dir}/names_{sex}.csv")
+    cache_file = Path(f"{cache_dir}/names_{gender}.csv")
 
     # Use input file if provided
     if input_file and Path(input_file).exists():
@@ -89,7 +89,7 @@ def get_names(sex, input_file=None, limit=None):
             return []
 
     # Read and process the data
-    names = trim_csv_to_limit(source_file, sex, limit)
+    names = trim_csv_to_limit(source_file, gender, limit)
 
     # Generate output csv
     generate_output_csv(names)
@@ -100,7 +100,7 @@ def get_names(sex, input_file=None, limit=None):
 
 def main():
     args = parse_args()
-    names = get_names(args.sex, args.input, args.limit)
+    names = get_names(args.gender, args.input, args.limit)
 
     if not names:
         print("No names found!")
