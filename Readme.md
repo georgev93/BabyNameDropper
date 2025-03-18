@@ -27,7 +27,7 @@ they can mark a character (any character) in the **2nd** column of that row
 (the "maybe" column) of that row if they would consider the name, but they're
 not in love with it. This can be done from the comfort of their favorite
 device, potentially by treating the csv as a spreadsheet in Google Sheets and
-marking it up from their phone while on an beach in Australia. See the
+marking it up from their phone while on a beach in Australia. See the
 [below section](#filling-out-the-voting-sheet) on how to fill out this "voting
 sheet".
 5. Once both parents have filled out their respective voting sheets, you can
@@ -84,7 +84,7 @@ You can literally type the letter `x` into the cell, or any letter/character
 you like. `A`, `b`, `8`, `.`, etc.
 
 Lastly **BE SURE TO SAVE THE FILE AS A CSV**. Not some fancy newer spreadsheet
-format, as the other script in this repo won't be able to process it
+format, as the other script in this repo won't be able to process it.
 
 ## Interpreting the Results
 
@@ -113,7 +113,7 @@ Consider the following example.
 The voting results would be:
 
 ```
-❯ python ./src/BabyNameVoteMerger.py example/sam.csv example/dave.csv                                                                                                                                     ─╯
+❯ python ./src/BabyNameVoteMerger.py example/sam.csv example/dave.csv
 ============================
         BOTH LIKED:
 
@@ -130,4 +130,4 @@ Oliver                   X
 
 Note that the name "James" wasn't considered because `sam` did not categorize
 this as a "Yes" or "Maybe," implying that this name is not one that she would
-consider
+consider.
