@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Literal
 
 NamesWithCounts = List[tuple[str, int]]
-Gender = Literal['M', 'F']
+Gender = Literal["M", "F"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -16,7 +16,7 @@ def parse_args() -> argparse.Namespace:
 
     Returns:
     A namespace containing the parsed args
-        
+
     """
     parser = argparse.ArgumentParser(
         description=(
@@ -37,7 +37,9 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def trim_csv_to_limit(csvfile: Path, gender: Gender, count_limit:int =0) -> NamesWithCounts:
+def trim_csv_to_limit(
+    csvfile: Path, gender: Gender, count_limit: int = 0
+) -> NamesWithCounts:
     """
     Trims an input CSV to a given input limit as well as downselects by gender.
 
@@ -47,7 +49,7 @@ def trim_csv_to_limit(csvfile: Path, gender: Gender, count_limit:int =0) -> Name
         count_limit (int): Number of names to return (0: returns all names)
 
     Returns:
-       NamesWithCounts: List of names with the number of children named with this name in the given year 
+       NamesWithCounts: List of names with the number of children named with this name in the given year
     """
     names: list[tuple[str, int]] = []
     with open(csvfile) as f:
@@ -64,7 +66,7 @@ def trim_csv_to_limit(csvfile: Path, gender: Gender, count_limit:int =0) -> Name
     return names
 
 
-def generate_output_csv(namelist: NamesWithCounts, output_file: str ='namelist.csv'):
+def generate_output_csv(namelist: NamesWithCounts, output_file: str = "namelist.csv"):
     """
     Generates an output CSV, ready to be filled in "tally" style
 
@@ -72,26 +74,26 @@ def generate_output_csv(namelist: NamesWithCounts, output_file: str ='namelist.c
         namelist (NamesWithCounts): A list of names with the number of children named with this name in the given year
         output_file (str): Where to save the output file
     """
-    with open(output_file, 'w', newline='') as f:
+    with open(output_file, "w", newline="") as f:
         writer = csv.writer(f)
 
-        writer.writerow(['Name', 'Maybe', 'Yes'])
+        writer.writerow(["Name", "Maybe", "Yes"])
 
         for name in namelist:
-            writer.writerow([name[0], '', ''])
+            writer.writerow([name[0], "", ""])
 
 
-def get_names(gender: Gender, input_file: str="", limit: int =0):
+def get_names(gender: Gender, input_file: str = "", limit: int = 0):
     """
     Fetches baby names (male, or female) of babies named in the past year along with a count of how many babies were named that name that year.
 
     Args:
-        gender (Gender): "M" or "F" 
+        gender (Gender): "M" or "F"
         input_file (str): A pre-downloaded list of names/counts to avoid fetching from online or using the cache
         limit (int): Limit the output CSV to a number of names (0: no limit)
     """
     # Define output file name for caching
-    cache_dir = Path('cache')
+    cache_dir = Path("cache")
     cache_dir.mkdir(exist_ok=True)
     cache_file = Path(f"{cache_dir}/names_{gender}.csv")
 
@@ -114,9 +116,10 @@ def get_names(gender: Gender, input_file: str="", limit: int =0):
                 print("Using most recent year: " + newest_file[3:7])
 
                 # Extract and save as cache file
-                with z.open(newest_file) as src, open(
-                    cache_file, "w", newline=""
-                ) as dst:
+                with (
+                    z.open(newest_file) as src,
+                    open(cache_file, "w", newline="") as dst,
+                ):
                     dst.writelines([line.decode() for line in src])
 
                 source_file = cache_file
